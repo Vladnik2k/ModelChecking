@@ -32,6 +32,7 @@ public class Main {
         test(23, ".", false);
         test(24, ".+123.123", false);
         test(25, "-123.123", true);
+        test(26, "-.123", false);
     }
 
     private static void test(Integer testIndex, String string, boolean actual) {

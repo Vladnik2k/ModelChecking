@@ -9,15 +9,23 @@ class Machine {
         for (int i = 0; i < buffer.length(); i++) {
             if (state == 1 && (buffer.charAt(i) == '+' || buffer.charAt(i) == '-')) {
                 state++;
-            } else if (state == 2 && buffer.charAt(i) == '.') {
+            } else if (state == 2 && isNumber(buffer.charAt(i))) {
                 state++;
-            } else if ((state == 3 || state == 2) && buffer.charAt(i) >= '0' && buffer.charAt(i) <= '9') {
+            } else if (state == 3 && buffer.charAt(i) == '.') {
+                state++;
+            } else if (state == 4 && isNumber(buffer.charAt(i))) {
+                state++;
+            } else if ((state == 3 || state == 5) && isNumber(buffer.charAt(i))) {
             } else {
                 return false;
             }
         }
 
-        return state == 3;
+        return state == 5;
+    }
+
+    static boolean isNumber(char symbol) {
+        return symbol >= '0' && symbol <= '9';
     }
 
 }
