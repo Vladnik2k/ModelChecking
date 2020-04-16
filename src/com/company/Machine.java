@@ -5,22 +5,19 @@ class Machine {
     private Machine() {}
 
     static boolean check(String buffer) {
-        boolean doesFracExist = false;
-        boolean doesNumberExist = false;
-        char symbol = ' ';
+        int state = 1;
         for (int i = 0; i < buffer.length(); i++) {
-            if ((buffer.charAt(i) == '+' || buffer.charAt(i) == '-') && symbol == ' ') {
-                symbol = buffer.charAt(i);
-            } else if (buffer.charAt(i) >= '0' && buffer.charAt(i) <= '9') {
-                doesNumberExist = true;
-            } else if (buffer.charAt(i) == '.' && !doesFracExist) {
-                doesFracExist = true;
+            if (state == 1 && (buffer.charAt(i) == '+' || buffer.charAt(i) == '-')) {
+                state++;
+            } else if (state == 2 && buffer.charAt(i) == '.') {
+                state++;
+            } else if ((state == 3 || state == 2) && buffer.charAt(i) >= '0' && buffer.charAt(i) <= '9') {
             } else {
                 return false;
             }
         }
 
-        return doesNumberExist;
+        return state == 3;
     }
 
 }
